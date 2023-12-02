@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperament Prediction</title>
+</head>
+<body>
+    <h1>Temperament Prediction</h1>
+    <p>Enter your personality traits on a scale of 1 to 5 (1: Strongly Disagree, 2: Disagree, 3: Neutral, 4: Agree, 5: Strongly Agree):</p>
+    <form method="POST">
+        <label for="openness">Openness to Experience:</label>
+        <input type="number" id="openness" name="openness" min="1" max="5" required>
+        <br>
+
+        <label for="neuroticism">Neuroticism/Anxious:</label>
+        <input type="number" id="neuroticism" name="neuroticism" min="1" max="5" required>
+        <br>
+
+        <label for="conscientiousness">Conscientiousness/Orderly:</label>
+        <input type="number" id="conscientiousness" name="conscientiousness" min="1" max="5" required>
+        <br>
+
+        <label for="agreeableness">Agreeableness:</label>
+        <input type="number" id="agreeableness" name="agreeableness" min="1" max="5" required>
+        <br>
+
+        <label for="extraversion">Extraversion:</label>
+        <input type="number" id="extraversion" name="extraversion" min="1" max="5" required>
+        <br>
+
+        <input type="submit" value="Predict Temperament">
+    </form>
+
+    <p id="result-message"></p>
+    <p id="accuracy-message"></p>
+
+    <script>
+        // AJAX request to submit form data and display the result
+        const form = document.getElementById('form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result-message').textContent = data.resultMessage;
+                document.getElementById('accuracy-message').textContent = data.accuracyMessage;
+            });
+        });
+    </script>
+</body>
+</html>
